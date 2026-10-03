@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="container">
+    <h1>Max, Luna and Coco are waiting for a home.</h1>
+    <p class="lead col-lg-7">{{ total_available }} pet{{ total_available|pluralize }} available for adoption right now. Browse, pick one that fits your life, and send your application.</p>
+    <a href="{% url 'pet_list' %}" class="btn btn-accent btn-lg">Find a pet</a>
+    {% if not user.is_authenticated %}<a href="{% url 'register' %}" class="btn btn-outline-dark btn-lg ms-2">Create account</a>{% endif %}
+  </div>
+</section>
+<section class="container mt-5">
+  <h2 class="mb-4">Newly listed</h2>
+  <div class="row g-4">
+    {% for pet in latest_pets %}
+    <div class="col-sm-6 col-lg-4">{% include 'pets/_pet_card.html' %}</div>
+    {% empty %}
+    <p class="text-muted">No pets are listed yet. Check back soon.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

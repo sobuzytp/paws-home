@@ -1,0 +1,35 @@
+:root {
+  --forest: #1f4d3a;
+  --forest-dark: #153828;
+  --mint: #e6f2ec;
+  --sun: #f2b33d;
+  --ink: #1c2b27;
+  --muted: #5d6f68;
+}
+body { font-family: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--ink); background: #fbfdfc; }
+h1, h2, h3, h4, .navbar-brand { font-family: "Bricolage Grotesque", "Nunito", system-ui, sans-serif; letter-spacing: -0.01em; }
+.navbar { background: var(--forest); }
+.navbar .nav-link, .navbar .navbar-brand { color: #fff; }
+.navbar .nav-link:hover { color: var(--sun); }
+.btn-primary { background: var(--forest); border-color: var(--forest); }
+.btn-primary:hover, .btn-primary:focus { background: var(--forest-dark); border-color: var(--forest-dark); }
+.btn-accent { background: var(--sun); border-color: var(--sun); color: var(--ink); font-weight: 700; }
+.btn-accent:hover { background: #e3a22b; border-color: #e3a22b; color: var(--ink); }
+a { color: var(--forest); }
+.hero { background: var(--mint); border-bottom: 4px solid var(--sun); padding: 4rem 0; }
+.hero h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 800; color: var(--forest-dark); }
+.pet-card { border: 1px solid #dbe8e1; border-radius: .75rem; overflow: hidden; height: 100%; background: #fff; }
+.pet-card .pet-img, .pet-photo { width: 100%; object-fit: cover; background: var(--mint); }
+.pet-card .pet-img { height: 200px; }
+.pet-photo { max-height: 420px; border-radius: .75rem; }
+.pet-placeholder { height: 200px; display: flex; align-items: center; justify-content: center; font-size: 4rem; background: var(--mint); }
+.pet-placeholder.large { height: 320px; border-radius: .75rem; font-size: 7rem; }
+.meta-list { list-style: none; padding: 0; margin: 0; color: var(--muted); }
+.filter-panel { background: var(--mint); border-radius: .75rem; padding: 1rem 1.25rem; }
+.status-badge-Available, .status-badge-Approved { background: #1f7a4d; }
+.status-badge-Adopted, .status-badge-Rejected { background: #a33a3a; }
+.status-badge-Pending { background: #b7791f; }
+.page-link { color: var(--forest); }
+.page-item.active .page-link { background: var(--forest); border-color: var(--forest); }
+footer { color: var(--muted); }
+:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }

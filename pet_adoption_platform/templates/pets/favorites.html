@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Favorites{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <h1 class="mb-4">Your favorite pets</h1>
+  <div class="row g-4">
+    {% for pet in pets %}<div class="col-sm-6 col-lg-4">{% include 'pets/_pet_card.html' %}</div>
+    {% empty %}<div class="col-12"><div class="alert alert-info">You have no favorites yet. Open a pet and choose "Add to favorites".</div></div>{% endfor %}
+  </div>
+</div>
+{% endblock %}

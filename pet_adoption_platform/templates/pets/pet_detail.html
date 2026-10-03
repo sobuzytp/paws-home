@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}{{ pet.name }}{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <a href="{% url 'pet_list' %}" class="small">&larr; Back to all pets</a>
+  <div class="row g-4 mt-1">
+    <div class="col-md-6">
+      {% if pet.image %}<img src="{{ pet.image.url }}" alt="Photo of {{ pet.name }}" class="pet-photo">
+      {% else %}<div class="pet-placeholder large" aria-hidden="true">{% if pet.animal_type == 'Cat' %}🐈{% elif pet.animal_type == 'Bird' %}🦜{% elif pet.animal_type == 'Rabbit' %}🐇{% elif pet.animal_type == 'Dog' %}🐕{% else %}🐾{% endif %}</div>{% endif %}
+    </div>
+    <div class="col-md-6">
+      <h1>{{ pet.name }} <span class="badge fs-6 align-middle status-badge-{{ pet.status }}">{{ pet.status }}</span></h1>
+      <dl class="row mt-3">
+        <dt class="col-4">Name</dt><dd class="col-8">{{ pet.name }}</dd>
+        <dt class="col-4">Type</dt><dd class="col-8">{{ pet.animal_type }}</dd>
+        <dt class="col-4">Breed</dt><dd class="col-8">{{ pet.breed }}</dd>
+        <dt class="col-4">Age</dt><dd class="col-8">{{ pet.age }} year{{ pet.age|pluralize }}</dd>
+        <dt class="col-4">Gender</dt><dd class="col-8">{{ pet.gender }}</dd>
+        <dt class="col-4">Location</dt><dd class="col-8">{{ pet.location }}</dd>
+        <dt class="col-4">Status</dt><dd class="col-8">{{ pet.status }}</dd>
+      </dl>
+      <h2 class="h5">About {{ pet.name }}</h2>
+      <p>{{ pet.description|linebreaksbr }}</p>
+
+      <div class="d-flex flex-wrap gap-2 align-items-center mt-4">
+        {% if pet.is_available %}
+          {% if has_active_request %}
+            <a href="{% url 'my_requests' %}" class="btn btn-outline-primary">You already applied. View your requests</a>
+          {% else %}
+            <a href="{% url 'apply' pet.pk %}" class="btn btn-accent btn-lg">Apply for adoption</a>
+          {% endif %}
+        {% else %}
+          <div class="alert alert-danger mb-0">❌ This pet has already been adopted.</div>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+        <form method="post" action="{% url 'toggle_favorite' pet.pk %}">{% csrf_token %}
+          <button type="submit" class="btn btn-outline-danger">{% if is_favorite %}♥ Remove from favorites{% else %}♡ Add to favorites{% endif %}</button>
+        </form>
+        {% endif %}
+      </div>
+      {% if not user.is_authenticated and pet.is_available %}
+      <p class="small text-muted mt-3"><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> or <a href="{% url 'register' %}">create an account</a> to apply.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

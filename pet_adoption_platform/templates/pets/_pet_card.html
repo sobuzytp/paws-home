@@ -1,0 +1,19 @@
+<div class="pet-card shadow-sm d-flex flex-column">
+  {% if pet.image %}
+    <img src="{{ pet.image.url }}" class="pet-img" alt="Photo of {{ pet.name }}">
+  {% else %}
+    <div class="pet-placeholder" aria-hidden="true">{% if pet.animal_type == 'Cat' %}🐈{% elif pet.animal_type == 'Bird' %}🦜{% elif pet.animal_type == 'Rabbit' %}🐇{% elif pet.animal_type == 'Dog' %}🐕{% else %}🐾{% endif %}</div>
+  {% endif %}
+  <div class="p-3 d-flex flex-column flex-grow-1">
+    <div class="d-flex justify-content-between align-items-start">
+      <h2 class="h5 mb-1">{{ pet.name }}</h2>
+      <span class="badge status-badge-{{ pet.status }}">{{ pet.status }}</span>
+    </div>
+    <ul class="meta-list small mb-3">
+      <li>{{ pet.animal_type }}, {{ pet.breed }}</li>
+      <li>{{ pet.age }} year{{ pet.age|pluralize }} old, {{ pet.gender }}</li>
+      <li>{{ pet.location }}</li>
+    </ul>
+    <a href="{% url 'pet_detail' pet.pk %}" class="btn btn-primary btn-sm mt-auto">View details</a>
+  </div>
+</div>

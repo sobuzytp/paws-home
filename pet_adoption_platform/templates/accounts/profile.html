@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}My profile{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <h1 class="mb-4">My profile</h1>
+  <div class="row g-4">
+    <div class="col-md-5">
+      <div class="pet-card p-3">
+        <h2 class="h5">Account</h2>
+        <dl class="row mb-0">
+          <dt class="col-5">Username</dt><dd class="col-7">{{ user.username }}</dd>
+          <dt class="col-5">Name</dt><dd class="col-7">{{ user.get_full_name|default:"Not set" }}</dd>
+          <dt class="col-5">Email</dt><dd class="col-7">{{ user.email|default:"Not set" }}</dd>
+          <dt class="col-5">Joined</dt><dd class="col-7">{{ user.date_joined|date:"d M Y" }}</dd>
+          <dt class="col-5">Favorites</dt><dd class="col-7"><a href="{% url 'favorites' %}">{{ favorites_count }} pet{{ favorites_count|pluralize }}</a></dd>
+        </dl>
+      </div>
+    </div>
+    <div class="col-md-7">
+      <div class="pet-card p-3">
+        <h2 class="h5">Adoption requests ({{ total }})</h2>
+        <p class="mb-2">
+          <span class="badge status-badge-Pending">Pending {{ stats.Pending }}</span>
+          <span class="badge status-badge-Approved">Approved {{ stats.Approved }}</span>
+          <span class="badge status-badge-Rejected">Rejected {{ stats.Rejected }}</span>
+        </p>
+        {% for r in recent %}
+        <div class="d-flex justify-content-between border-top py-2"><a href="{% url 'pet_detail' r.pet.pk %}">{{ r.pet.name }}</a><span>{{ r.created_at|date:"d M" }}, {{ r.status }}</span></div>
+        {% empty %}<p class="text-muted mb-0">You have not applied for any pet yet.</p>{% endfor %}
+        <a href="{% url 'my_requests' %}" class="btn btn-primary btn-sm mt-3">View all requests</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
