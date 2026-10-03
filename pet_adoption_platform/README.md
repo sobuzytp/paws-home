@@ -40,8 +40,8 @@ Authentication: Token (`Authorization: Token <key>`) or session.
 ## Setup
 
 ```bash
-git clone <your-repo-url>
-cd pet_adoption_platform
+git clone https://github.com/sobuzytp/paws-home.git
+cd paws-home/pet_adoption_platform
 
 python -m venv venv
 source venv/bin/activate          # Windows: venv\Scripts\activate
